@@ -7,6 +7,17 @@
 
 ![screen-shot](assets/screen-shot.png "Screenshot")
 
+--- 
+
+### 🏢 Based on
+
+- Compose multiplatform desktop
+- VLCJ
+- Mediainfo Lib
+- & Rust ❤️
+
+---
+
 ### 🚀 Features
 
  - Supports many media formats
