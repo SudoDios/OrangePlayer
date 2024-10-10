@@ -1,0 +1,16 @@
+[package]
+name = "orange_player"
+version = "1.0.0"
+edition = "2021"
+
+[lib]
+name = "orange_player"
+crate-type = ["cdylib"]
+
+[dependencies]
+jni = "0.21.1"
+jwalk = "0.8.1"
+xz2 = "0.1.7"
+tar = "0.4.42"
+rusqlite = { version = "0.32.1", features = ["bundled"] }
+md5 = "0.7.0"

@@ -1,0 +1,8 @@
+build/
+.idea
+.kotlin
+.gradle
+src/main/resources/*.dll
+src/main/resources/*.so
+src/main/resources/*.xz
+.DS_Store
