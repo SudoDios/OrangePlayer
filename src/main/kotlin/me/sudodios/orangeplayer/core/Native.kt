@@ -25,7 +25,7 @@ object Native {
     * Database
     * */
 
-    external fun initDatabase(dbPath : String)
+    private external fun initDatabase(dbPath : String)
     external fun dbInsertItems(mediaItems : Array<MediaItem>)
     external fun dbAddMediaToFav(path : String)
     external fun dbRemoveMediaFromFav(path : String)

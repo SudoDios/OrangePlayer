@@ -44,10 +44,10 @@ object PageSection {
     fun Int.suffixItems() : String {
         return if (this == 1) "1 item" else if (this == 0) "No items" else "$this items"
     }
-    fun Int.suffixFolders() : String {
+    private fun Int.suffixFolders() : String {
         return if (this == 1) "1 folder" else if (this == 0) "No folder" else "$this folders"
     }
-    fun Int.suffixPlaylists() : String {
+    private fun Int.suffixPlaylists() : String {
         return if (this == 1) "1 playlist" else if (this == 0) "No playlist" else "$this playlists"
     }
 

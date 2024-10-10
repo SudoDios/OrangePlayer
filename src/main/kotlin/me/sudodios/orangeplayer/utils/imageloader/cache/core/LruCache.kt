@@ -29,7 +29,7 @@ class LruCache<K : Any, V : Any>(
      * The max size of this cache in units calculated by [sizeCalculator]. This represents the max number of entries
      * if [sizeCalculator] used the default implementation (returning 1 for each entry),
      */
-    var maxSize = maxSize
+    private var maxSize = maxSize
         private set
 
     /**
@@ -41,15 +41,6 @@ class LruCache<K : Any, V : Any>(
 
     /**
      * Returns the value for [key] if it exists in the cache or wait for its creation if it is currently in progress.
-     * This returns [defaultValue] if a value is not cached and wasn't in creation or cannot be created.
-     *
-     * It may even throw exceptions for unhandled exceptions in the currently in-progress creation block.
-     */
-    suspend fun getOrDefault(key: K, defaultValue: V): V =
-        getFromCreation(key) ?: getIfAvailableOrDefault(key, defaultValue)
-
-    /**
-     * Returns the value for [key] if it exists in the cache or wait for its creation if it is currently in progress.
      * This returns `null` if a value is not cached and wasn't in creation or cannot be created.
      *
      * It may even throw exceptions for unhandled exceptions in the currently in-progress creation block.
@@ -57,18 +48,12 @@ class LruCache<K : Any, V : Any>(
     suspend fun get(key: K): V? =
         getFromCreation(key) ?: getIfAvailable(key)
 
-    /**
-     * Returns the value for [key] if it already exists in the cache or [defaultValue] if it doesn't exist or creation
-     * is still in progress.
-     */
-    suspend fun getIfAvailableOrDefault(key: K, defaultValue: V): V =
-        getIfAvailable(key) ?: defaultValue
 
     /**
      * Returns the value for [key] if it already exists in the cache or `null` if it doesn't exist or creation is still
      * in progress.
      */
-    suspend fun getIfAvailable(key: K): V? =
+    private suspend fun getIfAvailable(key: K): V? =
         mapMutex.withLock { map[key] }
 
 
@@ -84,23 +69,14 @@ class LruCache<K : Any, V : Any>(
         }
 
     /**
-     * Creates a new entry for [key] using [creationFunction] and returns the new value. Any existing value or
-     * in-progress creation of [key] would be replaced by the new function. If a value was created, it is moved to the
-     * head of the queue. This returns `null` if the value cannot be created. You can imply that the creation has
-     * failed by returning `null`. Any unhandled exceptions inside [creationFunction] won't be handled.
-     */
-    suspend fun put(key: K, creationFunction: suspend (key: K) -> V?): V? =
-        getFromCreation(key, putAsync(key, creationFunction))
-
-    /**
      * Creates a new entry for [key] using [creationFunction] and returns a [Deferred]. Any existing value or
      * in-progress creation of [key] would be replaced by the new function. If a value was created, it is moved to the
      * head of the queue. You can imply that the creation has failed by returning `null`.
      */
-    suspend fun putAsync(key: K, creationFunction: suspend (key: K) -> V?): Deferred<V?> =
+    private suspend fun putAsync(key: K, creationFunction: suspend (key: K) -> V?): Deferred<V?> =
         creationMutex.withLock { internalPutAsync(key, creationFunction) }
 
-    private suspend fun internalPutAsync(
+    private fun internalPutAsync(
         key: K,
         mappingFunction: suspend (key: K) -> V?,
     ): Deferred<V?> {
@@ -173,32 +149,12 @@ class LruCache<K : Any, V : Any>(
         }
     }
 
-    /**
-     * Clears the cache, calling [onEntryRemoved] on each removed entry.
-     */
-    suspend fun clear() {
-        for ((key, _) in creationMap) {
-            removeCreation(key)
-        }
-
-        trimToSize(size = -1) // -1 will evict 0-sized elements
-    }
-
-    /**
-     * Sets the max size of the cache to [maxSize]. If the new maxSize is smaller than the previous value, the cache
-     * would be trimmed.
-     */
-    suspend fun resize(maxSize: Long) {
-        require(maxSize > 0) { "maxSize <= 0" }
-        this.maxSize = maxSize
-        trimToSize(maxSize)
-    }
 
     /**
      * Remove the eldest entries until the total of remaining entries is/at/or below [size]. It won't affect the max
      * size of the cache, allowing it to grow again.
      */
-    suspend fun trimToSize(size: Long) {
+    private suspend fun trimToSize(size: Long) {
         mapMutex.withLock {
             nonLockedTrimToSize(size)
         }

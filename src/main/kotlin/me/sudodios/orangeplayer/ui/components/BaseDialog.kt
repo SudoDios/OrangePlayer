@@ -10,9 +10,6 @@ import androidx.compose.foundation.focusable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -24,44 +21,11 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.*
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupPositionProvider
 import androidx.compose.ui.window.PopupProperties
 import me.sudodios.orangeplayer.ui.theme.ColorBox
-
-@Composable
-fun DialogToolbar (
-    title : String,
-    onCloseClicked : () -> Unit
-) {
-    Row(modifier = Modifier.fillMaxWidth().height(56.dp)
-        .shadow(
-            1.dp,
-            ambientColor = ColorBox.text.copy(0.2f),
-            spotColor = ColorBox.text.copy(0.2f),
-        )
-        .background(ColorBox.card).padding(start = 8.dp, end = 16.dp), verticalAlignment = Alignment.CenterVertically) {
-        IconButton(
-            onClick = {
-                onCloseClicked.invoke()
-            }
-        ) {
-            Icon(
-                painter = painterResource("icons/close.svg"),
-                contentDescription = null,
-                tint = ColorBox.text.copy(0.8f)
-            )
-        }
-        EText(
-            modifier = Modifier.padding(start = 12.dp),
-            text = title,
-            color = ColorBox.text.copy(0.8f),
-            style = MaterialTheme.typography.titleMedium
-        )
-    }
-}
 
 @Composable
 fun BaseDialog(

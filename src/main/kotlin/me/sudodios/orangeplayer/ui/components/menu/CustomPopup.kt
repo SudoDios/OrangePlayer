@@ -269,16 +269,12 @@ internal data class DropdownMenuPositionProvider(
             sequenceOf(
                 toRight,
                 toLeft,
-                // If the anchor gets outside of the window on the left, we want to position
-                // toDisplayLeft for proximity to the anchor. Otherwise, toDisplayRight.
                 if (anchorBounds.left >= 0) toDisplayRight else toDisplayLeft
             )
         } else {
             sequenceOf(
                 toLeft,
                 toRight,
-                // If the anchor gets outside of the window on the right, we want to position
-                // toDisplayRight for proximity to the anchor. Otherwise, toDisplayLeft.
                 if (anchorBounds.right <= windowSize.width) toDisplayLeft else toDisplayRight
             )
         }.firstOrNull {

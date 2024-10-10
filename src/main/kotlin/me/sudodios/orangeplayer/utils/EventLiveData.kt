@@ -18,7 +18,7 @@ open class EventLiveData<T>(initialValue: T) {
         observers.remove(observer)
     }
 
-    protected fun changeValue(value: T) {
+    private fun changeValue(value: T) {
         storedValue = value
 
         observers.forEach { it(storedValue) }
