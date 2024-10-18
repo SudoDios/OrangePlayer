@@ -1,9 +1,6 @@
 package me.sudodios.orangeplayer.ui.components
 
-import androidx.compose.animation.core.MutableTransitionState
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.core.updateTransition
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.focusable
@@ -37,7 +34,7 @@ fun BaseDialog(
     val expandedState = remember { MutableTransitionState(false) }
     expandedState.targetState = expanded
 
-    val transition = updateTransition(expandedState, "CustomDialog")
+    val transition = rememberTransition(expandedState, "CustomDialog")
     val scale by transition.animateFloat(
         transitionSpec = {
             if (false isTransitioningTo true) {
