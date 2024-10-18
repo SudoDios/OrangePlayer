@@ -1,9 +1,7 @@
 package me.sudodios.orangeplayer
 
-import androidx.compose.material.ripple.LocalRippleTheme
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.lightColorScheme
+import androidx.compose.material.ripple.RippleAlpha
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.painterResource
@@ -49,6 +47,7 @@ private fun disableSpamLogging() {
     Logger.getLogger(AudioFile::class.java.getPackage().name).apply { level = Level.OFF }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun App () {
     MaterialTheme(
@@ -63,7 +62,13 @@ private fun App () {
         ),
         typography = Fonts.getTypography()
     ) {
-        CompositionLocalProvider(LocalRippleTheme provides AppRippleTheme) {
+        val rippleConfiguration = RippleConfiguration(color = ColorBox.text.copy(0.8f), RippleAlpha(
+            pressedAlpha = 0.10f,
+            focusedAlpha = 0.12f,
+            draggedAlpha = 0.16f,
+            hoveredAlpha = 0.08f
+        ))
+        CompositionLocalProvider(LocalRippleConfiguration provides rippleConfiguration) {
             LaunchedEffect(Unit) {
                 if (Native.dbCountMediaItems() == 0) {
                     Events.openScanDialog.value = true
