@@ -1,7 +1,6 @@
 package me.sudodios.orangeplayer.ui.dialogs
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -9,42 +8,32 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
-import androidx.compose.ui.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import me.sudodios.orangeplayer.Global
-import me.sudodios.orangeplayer.core.Platform
 import me.sudodios.orangeplayer.core.media.MediaStore
 import me.sudodios.orangeplayer.ui.components.BaseDialog
 import me.sudodios.orangeplayer.ui.components.EButton
 import me.sudodios.orangeplayer.ui.components.EText
 import me.sudodios.orangeplayer.ui.sections.list.PageSection
 import me.sudodios.orangeplayer.ui.theme.ColorBox
-import java.net.URLDecoder
+import me.sudodios.orangeplayer.utils.painterResource
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun DialogDropFiles(
     show : Boolean,
-    fromDragFiles : Boolean,
     listPaths : List<String>? = null,
-    onDragState: ((Global.DragState) -> Unit)? = null,
     onClose : () -> Unit
 ) {
 
     BaseDialog(expanded = show) {
 
-        var dragState by remember { mutableStateOf(Global.DragState.DRAG_EXIT) }
-        var droppedList by remember { mutableStateOf(listOf<String>()) }
-
-        val animateDropColor = animateColorAsState(if (dragState == Global.DragState.DRAG_ENTER) ColorBox.primary.copy(0.4f) else ColorBox.text.copy(0.1f))
-
         var preparing by remember { mutableStateOf(false) }
         var analyzed by remember { mutableStateOf(false) }
-        var statusText by remember { mutableStateOf("Drop files here") }
+        var statusText by remember { mutableStateOf("Preparing files ...") }
 
         fun analyzeFiles(paths : List<String>) {
             preparing = true
@@ -59,24 +48,6 @@ fun DialogDropFiles(
             }
         }
 
-        fun parseDroppedPaths(input : List<String>) : List<String> {
-            return input.map {
-                val fixStart = it.replace(if (Platform.isUnix()) "file:" else "file:/", "")
-                var decode = URLDecoder.decode(fixStart, "UTF-8")
-                if (Platform.isWin()) {
-                    decode = decode.replace("/","\\")
-                }
-                decode
-            }
-        }
-
-        //for drag method
-        LaunchedEffect(dragState) {
-            if (dragState == Global.DragState.DROPPED) {
-                analyzeFiles(droppedList)
-            }
-        }
-
         //for hand method
         LaunchedEffect(listPaths) {
             if (!listPaths.isNullOrEmpty()) {
@@ -85,29 +56,11 @@ fun DialogDropFiles(
         }
 
         Column(
-            modifier = Modifier.width(370.dp).clip(RoundedCornerShape(16.dp))
-                .onExternalDrag(
-                    enabled = dragState != Global.DragState.DROPPED && fromDragFiles,
-                    onDragStart = {
-                        dragState = Global.DragState.DRAG_ENTER
-                        onDragState?.invoke(Global.DragState.DRAG_ENTER)
-                    },
-                    onDragExit = {
-                        dragState = Global.DragState.DRAG_EXIT
-                        onDragState?.invoke(Global.DragState.DRAG_EXIT)
-                    },
-                    onDrop = { dropData ->
-                        dragState = Global.DragState.DROPPED
-                        onDragState?.invoke(Global.DragState.DROPPED)
-                        if (dropData.dragData is DragData.FilesList) {
-                            droppedList = parseDroppedPaths((dropData.dragData as DragData.FilesList).readFiles())
-                        }
-                    }
-                ),
+            modifier = Modifier.width(370.dp).clip(RoundedCornerShape(16.dp)),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Box(modifier = Modifier.padding(16.dp).fillMaxWidth().height(160.dp).clip(RoundedCornerShape(12.dp)).background(animateDropColor.value)) {
+            Box(modifier = Modifier.padding(16.dp).fillMaxWidth().height(160.dp).clip(RoundedCornerShape(12.dp)).background(ColorBox.text.copy(0.1f))) {
                 Column(Modifier.align(Alignment.Center), verticalArrangement = Arrangement.Center,horizontalAlignment = Alignment.CenterHorizontally) {
                     Icon(
                         modifier = Modifier.size(58.dp),

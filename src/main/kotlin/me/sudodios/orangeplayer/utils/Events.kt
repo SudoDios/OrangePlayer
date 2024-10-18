@@ -4,7 +4,7 @@ import androidx.compose.runtime.mutableStateOf
 
 object Events {
 
-    val showProgressLoading = EventLiveData(false)
+    val showProgressLoading = mutableStateOf(false)
 
     val windowFullscreen = mutableStateOf(false)
     val openScanDialog = mutableStateOf(false)
