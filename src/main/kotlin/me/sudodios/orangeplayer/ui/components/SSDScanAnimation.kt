@@ -12,7 +12,7 @@ import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.res.painterResource
+import me.sudodios.orangeplayer.utils.painterResource
 import androidx.compose.ui.unit.dp
 import me.sudodios.orangeplayer.ui.theme.ColorBox
 import org.jetbrains.skia.FilterBlurMode

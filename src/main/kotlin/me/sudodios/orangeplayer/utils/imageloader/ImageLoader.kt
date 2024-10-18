@@ -1,7 +1,7 @@
 package me.sudodios.orangeplayer.utils.imageloader
 
 import androidx.compose.runtime.*
-import androidx.compose.ui.res.painterResource
+import me.sudodios.orangeplayer.utils.painterResource
 import me.sudodios.orangeplayer.utils.imageloader.core.*
 import me.sudodios.orangeplayer.utils.imageloader.transform.ITransformation
 import java.io.File

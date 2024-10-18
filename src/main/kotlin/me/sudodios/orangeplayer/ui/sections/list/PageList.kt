@@ -26,7 +26,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.res.painterResource
+import me.sudodios.orangeplayer.utils.painterResource
 import androidx.compose.ui.text.*
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp

@@ -13,7 +13,7 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.res.painterResource
+import me.sudodios.orangeplayer.utils.painterResource
 import androidx.compose.ui.unit.dp
 import me.sudodios.orangeplayer.ui.theme.ColorBox
 import me.sudodios.orangeplayer.ui.theme.Fonts

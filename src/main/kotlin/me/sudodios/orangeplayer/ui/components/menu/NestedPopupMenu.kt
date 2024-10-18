@@ -18,7 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
-import androidx.compose.ui.res.painterResource
+import me.sudodios.orangeplayer.utils.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import me.sudodios.orangeplayer.ui.components.AutoResizeText

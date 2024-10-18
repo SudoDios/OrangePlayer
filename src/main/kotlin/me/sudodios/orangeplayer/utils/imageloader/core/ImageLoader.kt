@@ -1,11 +1,12 @@
 package me.sudodios.orangeplayer.utils.imageloader.core
 
-import androidx.compose.ui.res.loadImageBitmap
 import kotlinx.coroutines.*
 import me.sudodios.orangeplayer.core.Native
 import me.sudodios.orangeplayer.utils.imageloader.cache.LruUtil
 import me.sudodios.orangeplayer.utils.imageloader.cache.MemoryCache
 import me.sudodios.orangeplayer.utils.imageloader.transform.ITransformation
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.decodeToImageBitmap
 import java.io.File
 
 enum class SaveStrategy { Original }
@@ -56,6 +57,7 @@ class ImageLoader(maxMemoryCacheSize: Long) {
         return runFileLoad(loadFile!!, request.transformers)
     }
 
+    @OptIn(ExperimentalResourceApi::class)
     private suspend fun runFileLoad(file: File, transformers: MutableList<ITransformation>): ImageResponse {
         return scope.async(dispatcher) {
             val key = Native.fastFileMD5(file.absolutePath) + transformers.transformationKey()
@@ -64,7 +66,7 @@ class ImageLoader(maxMemoryCacheSize: Long) {
                 ImageResponse(hasCache.toBitmapPainter(), null)
             } else {
                 try {
-                    var imageBitmap = file.inputStream().buffered().use(::loadImageBitmap)
+                    var imageBitmap = file.inputStream().buffered().readAllBytes().decodeToImageBitmap()
                     for (transformer in transformers) {
                         imageBitmap = transformer.transform(imageBitmap)
                     }
