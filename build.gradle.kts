@@ -1,4 +1,4 @@
-import org.apache.tools.ant.taskdefs.condition.Os
+import org.gradle.internal.os.OperatingSystem
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
@@ -19,15 +19,15 @@ repositories {
 }
 
 fun getLibExt () : String = when {
-    Os.isFamily(Os.FAMILY_WINDOWS) -> "dll"
-    Os.isFamily(Os.FAMILY_UNIX) -> "so"
-    Os.isFamily(Os.FAMILY_MAC) -> "dylib"
+    OperatingSystem.current().isWindows -> "dll"
+    OperatingSystem.current().isLinux -> "so"
+    OperatingSystem.current().isMacOsX -> "dylib"
     else -> ""
 }
 
 fun getLibName () : String = when {
-    Os.isFamily(Os.FAMILY_WINDOWS) -> "orange_player"
-    Os.isFamily(Os.FAMILY_UNIX) || Os.isFamily(Os.FAMILY_MAC)  -> "liborange_player"
+    OperatingSystem.current().isWindows -> "orange_player"
+    OperatingSystem.current().isLinux || OperatingSystem.current().isMacOsX  -> "liborange_player"
     else -> ""
 }
 
@@ -61,13 +61,13 @@ tasks.register("bundleLibs") {
     }
     doLast {
         when {
-            Os.isFamily(Os.FAMILY_WINDOWS) -> {
+            OperatingSystem.current().isWindows -> {
                 copy {
                     from("libs/mi-win-64.tar.xz","libs/vlc-win-64.tar.xz")
                     into("src/main/resources")
                 }
             }
-            Os.isFamily(Os.FAMILY_UNIX) -> {
+            OperatingSystem.current().isLinux -> {
                 copy {
                     from("libs/mi-linux-64.tar.xz","libs/vlc-linux-64.tar.xz")
                     into("src/main/resources")
@@ -85,9 +85,10 @@ dependencies {
     }
     api(compose.animation)
     api(compose.foundation)
+    api(compose.components.resources)
     runtimeOnly("org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.9.0")
     implementation("com.github.adrielcafe.pufferdb:core:1.1.1")
-    implementation("org.jetbrains.compose.material3:material3-desktop:1.6.11")
+    implementation("org.jetbrains.compose.material3:material3-desktop:1.7.0")
     implementation("dev.icerock.moko:mvvm-livedata-compose:0.16.1")
     implementation("uk.co.caprica:vlcj:4.8.3")
 }
