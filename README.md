@@ -41,6 +41,7 @@
 - Volume controls
 - Aspect ratio
 - Mute
+- Audio tags editor
 - & ....
 
 ---
