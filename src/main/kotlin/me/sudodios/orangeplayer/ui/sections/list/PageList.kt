@@ -105,7 +105,7 @@ fun PageList() {
                 is MediaItem -> {
                     MediaItemRow(it, onClicked = {
                         @Suppress("UNCHECKED_CAST")
-                        Player.startPlay(it, playList = PageSection.pageList as List<MediaItem>)
+                        Player.startPlay(it, playList = PageSection.pageList as List<MediaItem>, fromUser = true)
                     })
                 }
                 is ModelFolderRead -> {

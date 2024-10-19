@@ -15,6 +15,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import me.sudodios.orangeplayer.core.media.MediaStore
+import me.sudodios.orangeplayer.core.media.Player
 import me.sudodios.orangeplayer.ui.components.BaseDialog
 import me.sudodios.orangeplayer.ui.components.EButton
 import me.sudodios.orangeplayer.ui.components.EText
@@ -42,6 +43,9 @@ fun DialogDropFiles(
                 preparing = false
                 analyzed = true
                 statusText = "Analyze completed\nFinded $vidCount Videos & $audioCount Aduios"
+                if (items?.isNotEmpty() == true) {
+                    Player.startPlay(items[0], playList = items, fromUser = true)
+                }
                 if (vidCount > 0 || audioCount > 0) {
                     PageSection.changePage(PageSection.selectedMenu.value,true)
                 }
