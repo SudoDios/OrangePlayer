@@ -8,8 +8,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.blur
@@ -18,7 +16,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import me.sudodios.orangeplayer.core.media.Player
 import me.sudodios.orangeplayer.ui.appDropFiles
-import me.sudodios.orangeplayer.ui.dialogs.DialogDropFiles
 import me.sudodios.orangeplayer.ui.sections.list.PageHead
 import me.sudodios.orangeplayer.ui.sections.list.PageList
 import me.sudodios.orangeplayer.ui.sections.list.SideMenu
@@ -62,12 +59,11 @@ private fun BgImage() {
 @Composable
 fun MainScreen() {
 
-    val listDroppedFiles = remember { mutableStateListOf<String>() }
     BoxWithConstraints(
         modifier = Modifier.fillMaxSize()
             .appDropFiles {
-                listDroppedFiles.clear()
-                listDroppedFiles.addAll(it)
+                Events.receivedFiles.clear()
+                Events.receivedFiles.addAll(it)
             }
             .background(ColorBox.window)
     ) {
@@ -104,12 +100,5 @@ fun MainScreen() {
             LargePlayer()
         }
     }
-    DialogDropFiles(
-        show = listDroppedFiles.isNotEmpty(),
-        listPaths = listDroppedFiles,
-        onClose = {
-            listDroppedFiles.clear()
-        }
-    )
 
 }
