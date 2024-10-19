@@ -26,7 +26,6 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.graphics.painter.Painter
-import me.sudodios.orangeplayer.utils.painterResource
 import androidx.compose.ui.text.*
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -49,6 +48,7 @@ import me.sudodios.orangeplayer.utils.Events
 import me.sudodios.orangeplayer.utils.Utils.formatToDuration
 import me.sudodios.orangeplayer.utils.Utils.openLocation
 import me.sudodios.orangeplayer.utils.imageloader.transform.ResizeTransformation
+import me.sudodios.orangeplayer.utils.painterResource
 import java.io.File
 
 @Composable

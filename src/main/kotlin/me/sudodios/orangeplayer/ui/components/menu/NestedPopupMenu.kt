@@ -18,12 +18,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
-import me.sudodios.orangeplayer.utils.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import me.sudodios.orangeplayer.ui.components.AutoResizeText
 import me.sudodios.orangeplayer.ui.components.FontSizeRange
 import me.sudodios.orangeplayer.ui.theme.ColorBox
+import me.sudodios.orangeplayer.utils.painterResource
 
 data class NestedMenuItem(
     val id: String? = null,

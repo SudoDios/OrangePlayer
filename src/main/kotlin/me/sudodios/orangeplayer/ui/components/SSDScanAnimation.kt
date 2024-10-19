@@ -12,9 +12,9 @@ import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.toArgb
-import me.sudodios.orangeplayer.utils.painterResource
 import androidx.compose.ui.unit.dp
 import me.sudodios.orangeplayer.ui.theme.ColorBox
+import me.sudodios.orangeplayer.utils.painterResource
 import org.jetbrains.skia.FilterBlurMode
 import org.jetbrains.skia.MaskFilter
 import org.jetbrains.skia.PaintMode
@@ -23,7 +23,7 @@ import org.jetbrains.skia.PaintStrokeCap
 @Composable
 fun SSDScanAnimation(isSearching : Boolean,modifier: Modifier) {
 
-    val painter = painterResource("/icons/ssd.svg")
+    val painter = painterResource("icons/ssd.svg")
 
     if (!isSearching) {
         Canvas(modifier) {

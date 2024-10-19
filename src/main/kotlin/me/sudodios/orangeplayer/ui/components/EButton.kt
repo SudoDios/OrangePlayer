@@ -19,7 +19,6 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
-import me.sudodios.orangeplayer.utils.painterResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
@@ -31,6 +30,7 @@ import androidx.compose.ui.unit.sp
 import me.sudodios.orangeplayer.ui.theme.ColorBox
 import me.sudodios.orangeplayer.ui.theme.Fonts
 import me.sudodios.orangeplayer.utils.Utils.roundTo
+import me.sudodios.orangeplayer.utils.painterResource
 
 @Composable
 fun EButton(

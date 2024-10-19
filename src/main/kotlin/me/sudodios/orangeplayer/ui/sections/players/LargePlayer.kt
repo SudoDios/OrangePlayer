@@ -25,7 +25,6 @@ import androidx.compose.ui.graphics.drawscope.ContentDrawScope
 import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.isPrimaryPressed
 import androidx.compose.ui.input.pointer.onPointerEvent
-import me.sudodios.orangeplayer.utils.painterResource
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
@@ -48,6 +47,7 @@ import me.sudodios.orangeplayer.ui.theme.Fonts
 import me.sudodios.orangeplayer.utils.Events
 import me.sudodios.orangeplayer.utils.Utils
 import me.sudodios.orangeplayer.utils.Utils.formatToDuration
+import me.sudodios.orangeplayer.utils.painterResource
 
 private var forceShowCursor = mutableStateOf(false)
 

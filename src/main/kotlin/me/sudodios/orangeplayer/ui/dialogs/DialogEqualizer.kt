@@ -18,7 +18,6 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
-import me.sudodios.orangeplayer.utils.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import me.sudodios.orangeplayer.core.media.Player
@@ -27,6 +26,7 @@ import me.sudodios.orangeplayer.ui.components.menu.NestedPopupMenu
 import me.sudodios.orangeplayer.ui.components.menu.dropDownMenu
 import me.sudodios.orangeplayer.ui.theme.ColorBox
 import me.sudodios.orangeplayer.utils.Utils.formatToCount
+import me.sudodios.orangeplayer.utils.painterResource
 import kotlin.math.pow
 
 @Composable
