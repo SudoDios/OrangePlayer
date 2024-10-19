@@ -104,7 +104,7 @@ object Player {
     }
 
     private val mediaPlayer = EmbeddedMediaPlayerComponent()
-    private val playList = mutableListOf<MediaItem>()
+    var playList = mutableListOf<MediaItem>()
     val videoSurface = SkiaImageVideoSurface()
 
     fun init() {
@@ -182,7 +182,12 @@ object Player {
         }
     }
 
-    fun startPlay(mediaItem: MediaItem, position: Float = 0f, playList: List<MediaItem>? = null) {
+    fun reorderPlaylist(to : Int,from : Int) {
+        playList = playList.toMutableList().apply {
+            add(to, removeAt(from))
+        }
+    }
+
     fun startPlay(mediaItem: MediaItem, position: Float = 0f, playList: List<MediaItem>? = null,fromUser : Boolean = false) {
         Live.currentMedia.value = mediaItem
         Live.waveform.value = null

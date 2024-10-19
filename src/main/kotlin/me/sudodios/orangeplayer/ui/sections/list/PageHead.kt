@@ -35,6 +35,16 @@ fun PageHead() {
                 }
             )
             EIconButton(
+                padding = PaddingValues(end = 8.dp, top = 12.dp),
+                background = ColorBox.primary.copy(0.3f),
+                size = 38.dp,
+                contentPadding = 8.dp,
+                icon = "icons/playlist.svg",
+                onClick = {
+                    Events.showCurrentPlaylist.value = true
+                }
+            )
+            EIconButton(
                 padding = PaddingValues(end = 16.dp, top = 12.dp),
                 background = ColorBox.text.copy(0.1f),
                 size = 38.dp,

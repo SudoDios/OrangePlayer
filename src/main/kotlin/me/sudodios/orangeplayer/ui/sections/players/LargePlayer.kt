@@ -142,7 +142,7 @@ private fun Overlay(mediaIsVideo: Boolean,onForceShowCursor: (Boolean) -> Unit) 
     ) {
         EIconButton(
             padding = PaddingValues(16.dp),
-            icon = "icons/playlist.svg",
+            icon = "icons/arrow-left.svg",
             size = 44.dp,
             contentPadding = 9.dp,
             colorFilter = Color.White,
@@ -152,7 +152,18 @@ private fun Overlay(mediaIsVideo: Boolean,onForceShowCursor: (Boolean) -> Unit) 
                 Events.windowFullscreen.value = false
             }
         )
-
+        EIconButton(
+            modifier = Modifier.align(Alignment.TopEnd),
+            padding = PaddingValues(end = 76.dp,top = 16.dp),
+            icon = "icons/playlist.svg",
+            size = 44.dp,
+            contentPadding = 9.dp,
+            colorFilter = Color.White,
+            background = Color.Black.copy(0.3f),
+            onClick = {
+                Events.showCurrentPlaylist.value = true
+            }
+        )
         EIconButton(
             modifier = Modifier.align(Alignment.TopEnd),
             padding = PaddingValues(16.dp),
