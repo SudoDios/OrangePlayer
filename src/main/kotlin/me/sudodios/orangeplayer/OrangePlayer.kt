@@ -11,6 +11,8 @@ import me.sudodios.orangeplayer.core.Native
 import me.sudodios.orangeplayer.core.media.Player
 import me.sudodios.orangeplayer.ui.components.BaseDialog
 import me.sudodios.orangeplayer.ui.components.FpsCounter
+import me.sudodios.orangeplayer.ui.dialogs.DialogCurrentPlaylist
+import me.sudodios.orangeplayer.ui.dialogs.DialogDropFiles
 import me.sudodios.orangeplayer.ui.dialogs.DialogScanMedia
 import me.sudodios.orangeplayer.ui.pages.MainScreen
 import me.sudodios.orangeplayer.ui.sections.list.PageSection
@@ -88,6 +90,19 @@ private fun App () {
                     }
                 )
             }
+            DialogDropFiles(
+                show = Events.receivedFiles.isNotEmpty(),
+                listPaths = Events.receivedFiles.toList(),
+                onClose = {
+                    Events.receivedFiles.clear()
+                }
+            )
+            DialogCurrentPlaylist(
+                show = Events.showCurrentPlaylist.value,
+                onDismiss = {
+                    Events.showCurrentPlaylist.value = false
+                }
+            )
         }
     }
 }
