@@ -183,6 +183,7 @@ object Player {
     }
 
     fun startPlay(mediaItem: MediaItem, position: Float = 0f, playList: List<MediaItem>? = null) {
+    fun startPlay(mediaItem: MediaItem, position: Float = 0f, playList: List<MediaItem>? = null,fromUser : Boolean = false) {
         Live.currentMedia.value = mediaItem
         Live.waveform.value = null
         if (playList != null) {
@@ -199,6 +200,7 @@ object Player {
             })
         } else {
             Live.waveform.value = null
+            if (fromUser) Live.showLargePlayer.value = true
         }
     }
 
