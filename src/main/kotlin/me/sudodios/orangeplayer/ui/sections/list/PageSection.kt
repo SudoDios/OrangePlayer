@@ -1,5 +1,6 @@
 package me.sudodios.orangeplayer.ui.sections.list
 
+import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import kotlinx.coroutines.*
@@ -13,6 +14,9 @@ import me.sudodios.orangeplayer.utils.Utils.formatToDurationInfo
 import java.io.File
 
 object PageSection {
+
+    //list scroll state
+    val lazyGridState = LazyGridState()
 
     enum class Page(var title : String,var icon : String) {
         ALL_MEDIA("All Media","icons/media-library.svg"),

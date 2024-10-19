@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
@@ -67,7 +66,6 @@ fun PageList() {
             }
         }
 
-    val listState = rememberLazyGridState()
     val scope = rememberCoroutineScope()
     DisposableEffect(Unit) {
         val observer : (Boolean) -> Unit = {
@@ -76,7 +74,7 @@ fun PageList() {
                 val findItemIndex = PageSection.pageList.indexOf(playingMedia)
                 if (findItemIndex != -1) {
                     scope.launch {
-                        listState.scrollToItem(findItemIndex)
+                        PageSection.lazyGridState.scrollToItem(findItemIndex)
                     }
                 }
             }
@@ -94,13 +92,13 @@ fun PageList() {
             orientation = Orientation.Vertical,
             state = rememberDraggableState { delta ->
                 scope.launch {
-                    listState.scrollBy(-delta)
+                    PageSection.lazyGridState.scrollBy(-delta)
                 }
             },
         ),
         columns = columnCellType,
         contentPadding = PaddingValues(8.dp),
-        state = listState
+        state = PageSection.lazyGridState
     ) {
         items(PageSection.pageList) {
             when (it) {
