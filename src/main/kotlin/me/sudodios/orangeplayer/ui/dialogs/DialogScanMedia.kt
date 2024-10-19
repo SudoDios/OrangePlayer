@@ -21,7 +21,7 @@ fun DialogScanMedia(onClose: () -> Unit,onFinished : () -> Unit) {
     fun startScan () {
         searching = true
         resultString = "scanning ..."
-        MediaStore.scanPaths(arrayOf(Global.userHome), result = { vidCount,audioCount ->
+        MediaStore.scanPaths(returnItems = false,arrayOf(Global.userHome), result = { vidCount,audioCount,_ ->
             searching = false
             resultString = "$vidCount videos, $audioCount audios"
             onFinished.invoke()

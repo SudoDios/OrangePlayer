@@ -38,7 +38,7 @@ fun DialogDropFiles(
         fun analyzeFiles(paths : List<String>) {
             preparing = true
             statusText = "Analyzing ${paths.size} paths ..."
-            MediaStore.scanPaths(paths.toTypedArray()) { vidCount, audioCount ->
+            MediaStore.scanPaths(returnItems = true,paths = paths.toTypedArray()) { vidCount, audioCount,items ->
                 preparing = false
                 analyzed = true
                 statusText = "Analyze completed\nFinded $vidCount Videos & $audioCount Aduios"

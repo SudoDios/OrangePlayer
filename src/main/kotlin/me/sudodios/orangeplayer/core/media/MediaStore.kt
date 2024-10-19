@@ -172,9 +172,8 @@ object MediaStore {
         Native.mi?.Delete(mediaInfo)
     }
 
-    fun scanPaths(paths : Array<String>,result : (vidCount : Int,audioCount : Int) -> Unit) {
+    fun scanPaths(returnItems : Boolean,paths : Array<String>,result : (vidCount : Int,audioCount : Int,List<MediaItem>?) -> Unit) {
         CoroutineScope(Dispatchers.Default).launch {
-            //val scannedItems = mutableListOf<MediaItem>()
             val searchedPaths = Native.searchMedia(paths)
             val scannedItems = searchedPaths.mapParallel {
                 val mediaItem = MediaItem().apply {
@@ -188,23 +187,11 @@ object MediaStore {
                 mediaInfoExtraction(mediaItem)
                 mediaItem
             }
-            /*Native.searchMedia(paths).forEach {
-                val mediaItem = MediaItem().apply {
-                    name = removeExtension(it.fileName)
-                    path = it.path
-                    size = it.size
-                    extension = it.extension
-                    folder = it.folder
-                    hash = it.hash
-                }
-                mediaInfoExtraction(mediaItem)
-                scannedItems.add(mediaItem)
-            }*/
             Native.dbInsertItems(scannedItems.toTypedArray())
             val videoCount = scannedItems.count { it.isVideo }
             val audiosCount = scannedItems.count { !it.isVideo }
             withContext(Dispatchers.Default) {
-                result.invoke(videoCount,audiosCount)
+                result.invoke(videoCount,audiosCount,if (returnItems) scannedItems else null)
             }
         }
     }
