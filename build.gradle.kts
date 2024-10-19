@@ -1,4 +1,5 @@
 import org.gradle.internal.os.OperatingSystem
+import org.jetbrains.compose.desktop.application.dsl.JvmApplicationDistributions
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
@@ -93,6 +94,64 @@ dependencies {
     implementation("uk.co.caprica:vlcj:4.8.3")
 }
 
+fun JvmApplicationDistributions.addFileAssociations () {
+    fileAssociation(
+        extension = "mp3",
+        mimeType = "audio/mpeg",
+        description = "AudioFile"
+    )
+    fileAssociation(
+        extension = "aac",
+        mimeType = "audio/aac",
+        description = "AudioFile"
+    )
+    fileAssociation(
+        extension = "avi",
+        mimeType = "video/x-msvideo",
+        description = "VideoFile"
+    )
+    fileAssociation(
+        extension = "flac",
+        mimeType = "audio/flac",
+        description = "AudioFile"
+    )
+    fileAssociation(
+        extension = "m4a",
+        mimeType = "audio/mp4",
+        description = "AudioFile"
+    )
+    fileAssociation(
+        extension = "mkv",
+        mimeType = "video/x-matroska",
+        description = "VideoFile"
+    )
+    fileAssociation(
+        extension = "mov",
+        mimeType = "video/quicktime",
+        description = "VideoFile"
+    )
+    fileAssociation(
+        extension = "mp4",
+        mimeType = "video/mp4",
+        description = "VideoFile"
+    )
+    fileAssociation(
+        extension = "ogg",
+        mimeType = "audio/ogg",
+        description = "AudioFile"
+    )
+    fileAssociation(
+        extension = "wav",
+        mimeType = "audio/wav",
+        description = "AudioFile"
+    )
+    fileAssociation(
+        extension = "wmv",
+        mimeType = "video/x-ms-wmv",
+        description = "VideoFile"
+    )
+}
+
 compose.desktop {
     application {
         mainClass = "me.sudodios.orangeplayer.OrangePlayerKt"
@@ -101,6 +160,7 @@ compose.desktop {
             modules("jdk.unsupported")
             packageName = "Orange Player"
             packageVersion = appVersion
+            addFileAssociations()
             val iconsRoot = project.file("src/main/resources")
             linux {
                 iconFile.set(iconsRoot.resolve("icons/app-icon.png"))
@@ -110,6 +170,7 @@ compose.desktop {
             windows {
                 iconFile.set(iconsRoot.resolve("icons/app-icon.ico"))
                 packageVersion = appVersion
+                shortcut = true
             }
         }
         buildTypes.release.proguard {

@@ -2,9 +2,10 @@ package me.sudodios.orangeplayer
 
 import androidx.compose.material.ripple.RippleAlpha
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.window.*
 import me.sudodios.orangeplayer.core.InitWindow
 import me.sudodios.orangeplayer.core.Native
@@ -16,10 +17,10 @@ import me.sudodios.orangeplayer.ui.dialogs.DialogDropFiles
 import me.sudodios.orangeplayer.ui.dialogs.DialogScanMedia
 import me.sudodios.orangeplayer.ui.pages.MainScreen
 import me.sudodios.orangeplayer.ui.sections.list.PageSection
-import me.sudodios.orangeplayer.ui.theme.AppRippleTheme
 import me.sudodios.orangeplayer.ui.theme.ColorBox
 import me.sudodios.orangeplayer.ui.theme.Fonts
 import me.sudodios.orangeplayer.utils.Events
+import me.sudodios.orangeplayer.utils.painterResource
 import org.jaudiotagger.audio.AudioFile
 import java.awt.Dimension
 import java.util.logging.Level
@@ -107,26 +108,38 @@ private fun App () {
     }
 }
 
-fun main() {
-    initialize()
-    disableSpamLogging()
-    application {
-        val state = rememberWindowState(position = WindowPosition(alignment = Alignment.Center))
-        LaunchedEffect(Events.windowFullscreen.value) {
-            state.placement = if (Events.windowFullscreen.value) WindowPlacement.Fullscreen else WindowPlacement.Floating
+fun main(args : Array<String>) {
+    Application(
+        onRecFiles = {
+            Events.receivedFiles.clear()
+            Events.receivedFiles.addAll(it)
+            Events.reqWindowToFront.value = !Events.reqWindowToFront.value
+        },
+        onInitWindow = {
+            initialize()
+            disableSpamLogging()
+            application {
+                val state = rememberWindowState(position = WindowPosition(alignment = Alignment.Center))
+                LaunchedEffect(Events.windowFullscreen.value) {
+                    state.placement = if (Events.windowFullscreen.value) WindowPlacement.Fullscreen else WindowPlacement.Floating
+                }
+                val playingMediaName = if (Player.Live.currentMedia.value != null) " - ${Player.Live.currentMedia.value?.name}" else ""
+                Window(
+                    icon = painterResource("icons/app-icon.png"),
+                    title = "Orange Player$playingMediaName",
+                    onCloseRequest = ::exitApplication,
+                    state = state,
+                    onKeyEvent = {
+                        Global.keyEvents(it)
+                    },
+                ) {
+                    LaunchedEffect(Events.reqWindowToFront.value) {
+                        window.toFront()
+                    }
+                    window.minimumSize = Dimension(450,550)
+                    App()
+                }
+            }
         }
-        val playingMediaName = if (Player.Live.currentMedia.value != null) " - ${Player.Live.currentMedia.value?.name}" else ""
-        Window(
-            icon = painterResource("icons/app-icon.png"),
-            title = "Orange Player$playingMediaName",
-            onCloseRequest = ::exitApplication,
-            state = state,
-            onKeyEvent = {
-                Global.keyEvents(it)
-            },
-        ) {
-            window.minimumSize = Dimension(450,550)
-            App()
-        }
-    }
+    ).run(args = args)
 }
