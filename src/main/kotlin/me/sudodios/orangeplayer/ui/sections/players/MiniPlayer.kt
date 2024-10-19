@@ -142,7 +142,7 @@ fun MiniPlayer(maxWidth: Int) {
             SmoothImage(
                 modifier = Modifier.size(60.dp).clip(RoundedCornerShape(12.dp)).background(ColorBox.card),
                 image = Player.Live.currentMedia.value?.coverPath,
-                placeHolder = "icons/app-icon.png",
+                placeHolder = if (Player.Live.currentMedia.value?.isVideo == true) "icons/video-placeholder.svg" else "icons/audio-placeholder.svg",
                 transformer = ResizeTransformation(80,null),
                 fadeOnChange = true
             )

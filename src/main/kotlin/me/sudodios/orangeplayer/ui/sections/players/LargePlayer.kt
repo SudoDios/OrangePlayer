@@ -99,7 +99,7 @@ private fun BoxScope.SurfaceView(mediaIsVideo : Boolean) {
         SmoothImage(
             modifier = Modifier.align(Alignment.Center).size(160.dp).clip(RoundedCornerShape(12.dp)),
             image = Player.Live.currentMedia.value?.coverPath,
-            placeHolder = "icons/app-icon.png",
+            placeHolder = "icons/audio-placeholder.svg",
             fadeOnChange = true
         )
     }

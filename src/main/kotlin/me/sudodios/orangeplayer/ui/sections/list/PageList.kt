@@ -157,7 +157,7 @@ private fun MediaItemRow(mediaItem: MediaItem, onClicked: () -> Unit) {
             image = mediaItem.coverPath,
             fadeOnChange = false,
             transformer = ResizeTransformation(60,null),
-            placeHolder = if (mediaItem.isVideo) "icons/video-cam.svg" else "icons/music-note.svg",
+            placeHolder = if (mediaItem.isVideo) "icons/video-placeholder.svg" else "icons/audio-placeholder.svg",
             placeTint = ColorBox.text.copy(0.7f)
         )
         Column(modifier = Modifier.padding(start = 12.dp, end = 12.dp).weight(1f)) {
