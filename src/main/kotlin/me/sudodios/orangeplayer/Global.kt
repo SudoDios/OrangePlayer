@@ -10,7 +10,7 @@ object Global {
     val userHome : String get() = System.getProperty("user.home")
     val LIB_CORE_PATH = "$userHome${File.separator}.orangeplayer"
     val COVER_PATH = "$userHome${File.separator}.orangeplayer${File.separator}covers"
-    val PREFS_PATH = "$userHome${File.separator}.orangeplayer${File.separator}prefs.db"
+    val PREFS_PATH = "$userHome${File.separator}.orangeplayer${File.separator}orange-prefs.db"
     val DB_PATH = "$userHome${File.separator}.orangeplayer${File.separator}orange-player.db"
     val SNAPSHOT_PATH = "$userHome${File.separator}Pictures"
 

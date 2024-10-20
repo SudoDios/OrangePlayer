@@ -88,7 +88,7 @@ dependencies {
     api(compose.foundation)
     api(compose.components.resources)
     runtimeOnly("org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.9.0")
-    implementation("com.github.adrielcafe.pufferdb:core:1.1.1")
+    implementation("com.github.adrielcafe.satchel:satchel-core:1.0.3")
     implementation("org.jetbrains.compose.material3:material3-desktop:1.7.0")
     implementation("dev.icerock.moko:mvvm-livedata-compose:0.16.1")
     implementation("uk.co.caprica:vlcj:4.8.3")
