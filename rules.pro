@@ -6,7 +6,6 @@
 -keep class kotlinx.coroutines.** { *; }
 -keep class kotlinx.serialization.** { *; }
 -keep class androidx.compose.runtime.** { *; }
--keep class com.github.kwhat.jnativehook.** { *; }
 
 -keep class me.sudodios.mediainfo.** { *; }
 -keep class me.sudodios.orangeplayer.models.** { *; }
@@ -18,3 +17,4 @@
 -dontwarn androidx.compose.**
 -dontwarn kotlinx.atomicfu.**
 -dontwarn org.apache.log4j.**
+-dontwarn cafe.adriel.satchel.**
