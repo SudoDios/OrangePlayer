@@ -21,6 +21,7 @@ import me.sudodios.orangeplayer.ui.components.EButton
 import me.sudodios.orangeplayer.ui.components.EText
 import me.sudodios.orangeplayer.ui.sections.list.PageSection
 import me.sudodios.orangeplayer.ui.theme.ColorBox
+import me.sudodios.orangeplayer.utils.Events
 import me.sudodios.orangeplayer.utils.painterResource
 
 @Composable
@@ -52,7 +53,9 @@ fun DialogDropFiles(
             }
         }
 
-        //for hand method
+        LaunchedEffect(Unit) {
+            Events.showCurrentPlaylist.value = false // close current playlist dialog
+        }
         LaunchedEffect(listPaths) {
             if (!listPaths.isNullOrEmpty()) {
                 analyzeFiles(listPaths)
