@@ -303,7 +303,7 @@ private fun Overlay(mediaIsVideo: Boolean,onForceShowCursor: (Boolean) -> Unit) 
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 PlayAnimationView(
-                    color = ColorBox.window,
+                    color = Color.Black,
                     modifier = Modifier.size(48.dp).clip(RoundedCornerShape(50))
                         .background(ColorBox.primary)
                         .clickable {

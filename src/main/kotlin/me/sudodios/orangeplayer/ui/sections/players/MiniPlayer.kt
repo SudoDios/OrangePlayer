@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.layout.onSizeChanged
@@ -168,7 +169,7 @@ fun MiniPlayer(maxWidth: Int) {
                 }
             )
             PlayAnimationView(
-                color = ColorBox.window,
+                color = Color.Black,
                 modifier = Modifier.size(48.dp).clip(RoundedCornerShape(50))
                     .background(ColorBox.primary)
                     .clickable {
