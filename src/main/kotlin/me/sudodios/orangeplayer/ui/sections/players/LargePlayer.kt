@@ -140,44 +140,52 @@ private fun Overlay(mediaIsVideo: Boolean,onForceShowCursor: (Boolean) -> Unit) 
         }
         .fillMaxSize()
     ) {
-        EIconButton(
-            padding = PaddingValues(16.dp),
-            icon = "icons/arrow-left.svg",
-            size = 44.dp,
-            contentPadding = 9.dp,
-            colorFilter = Color.White,
-            background = Color.Black.copy(0.3f),
-            onClick = {
-                Player.Live.showLargePlayer.value = false
-                Events.windowFullscreen.value = false
-            }
-        )
-        EIconButton(
-            modifier = Modifier.align(Alignment.TopEnd),
-            padding = PaddingValues(end = 76.dp,top = 16.dp),
-            icon = "icons/playlist.svg",
-            size = 44.dp,
-            contentPadding = 9.dp,
-            colorFilter = Color.White,
-            background = Color.Black.copy(0.3f),
-            onClick = {
-                Events.showCurrentPlaylist.value = true
-            }
-        )
-        EIconButton(
-            modifier = Modifier.align(Alignment.TopEnd),
-            padding = PaddingValues(16.dp),
-            enabled = Player.Live.currentMedia.value != null,
-            icon = "icons/tuning.svg",
-            size = 44.dp,
-            contentPadding = 9.dp,
-            colorFilter = Color.White,
-            background = Color.Black.copy(0.3f),
-            onClick = {
-                showOtherOptions = true
-                onForceShowCursor.invoke(true)
-            }
-        )
+        Row(modifier = Modifier.fillMaxWidth().padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
+            EIconButton(
+                icon = "icons/arrow-left.svg",
+                size = 44.dp,
+                contentPadding = 9.dp,
+                colorFilter = Color.White,
+                background = Color.Black.copy(0.3f),
+                onClick = {
+                    Player.Live.showLargePlayer.value = false
+                    Events.windowFullscreen.value = false
+                }
+            )
+            EText(
+                modifier = Modifier.padding(start = 12.dp, end = 12.dp).weight(1f),
+                text = Player.Live.currentMedia.value?.name.toString(),
+                color = Color.White,
+                style = MaterialTheme.typography.bodyLarge,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
+            )
+            EIconButton(
+                padding = PaddingValues(end = 12.dp),
+                icon = "icons/playlist.svg",
+                size = 44.dp,
+                contentPadding = 9.dp,
+                colorFilter = Color.White,
+                background = Color.Black.copy(0.3f),
+                onClick = {
+                    Events.showCurrentPlaylist.value = true
+                }
+            )
+            EIconButton(
+                enabled = Player.Live.currentMedia.value != null,
+                icon = "icons/tuning.svg",
+                size = 44.dp,
+                contentPadding = 9.dp,
+                colorFilter = Color.White,
+                background = Color.Black.copy(0.3f),
+                onClick = {
+                    showOtherOptions = true
+                    onForceShowCursor.invoke(true)
+                }
+            )
+        }
+
+
 
         NestedPopupMenu(
             expanded = showOtherOptions,
@@ -325,15 +333,7 @@ private fun Overlay(mediaIsVideo: Boolean,onForceShowCursor: (Boolean) -> Unit) 
                         Player.next()
                     }
                 )
-                Column(modifier = Modifier.padding(start = 16.dp, end = 16.dp).weight(1f)) {
-                    EText(
-                        text = Player.Live.currentMedia.value?.name.toString(),
-                        color = Color.White,
-                        style = MaterialTheme.typography.bodyLarge,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                    )
-                }
+                Spacer(Modifier.weight(1f))
                 EIconButton(
                     padding = PaddingValues(end = 14.dp),
                     icon = "icons/sound-wave.svg",
