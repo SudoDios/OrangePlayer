@@ -5,7 +5,6 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -27,6 +26,7 @@ import kotlinx.coroutines.withContext
 import me.sudodios.orangeplayer.Global
 import me.sudodios.orangeplayer.core.Native
 import me.sudodios.orangeplayer.models.MediaItem
+import me.sudodios.orangeplayer.ui.clickable2
 import me.sudodios.orangeplayer.ui.components.*
 import me.sudodios.orangeplayer.ui.theme.ColorBox
 import me.sudodios.orangeplayer.utils.Utils
@@ -217,7 +217,7 @@ private fun EditCoverView(cover: String?,enabled : Boolean, onCoverSelected: (St
                     .fillMaxWidth()
                     .height(40.dp)
                     .background(ColorBox.window.copy(0.5f))
-                    .clickable(enabled) {
+                    .clickable2(enabled) {
                         val imageSel = Utils.openFilePicker(title = "Choice Image", "jpg", "jpeg", "png")
                         if (imageSel != null) {
                             onCoverSelected.invoke(imageSel.absolutePath)

@@ -2,7 +2,6 @@ package me.sudodios.orangeplayer.ui.components
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -22,6 +21,7 @@ import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import me.sudodios.orangeplayer.ui.clickable2
 import me.sudodios.orangeplayer.ui.theme.ColorBox
 import me.sudodios.orangeplayer.ui.theme.Fonts
 import me.sudodios.orangeplayer.utils.painterResource
@@ -46,7 +46,7 @@ fun EActionRow(
     Canvas(
         modifier = modifier.width(180.dp).height(58.dp).clip(clip).background(backgroundColor)
             .pointerHoverIcon(if (enabled) PointerIcon.Hand else PointerIcon.Default)
-            .clickable(enabled = enabled) {  }
+            .clickable2(enabled = enabled) {  }
     ) {
         val titleSize = textMeasurer.measure(title, titleStyle).size
         drawText(

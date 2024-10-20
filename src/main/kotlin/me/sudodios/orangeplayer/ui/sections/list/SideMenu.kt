@@ -3,7 +3,10 @@ package me.sudodios.orangeplayer.ui.sections.list
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.*
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.TooltipArea
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
@@ -22,6 +25,7 @@ import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import me.sudodios.orangeplayer.ui.clickable2
 import me.sudodios.orangeplayer.ui.components.EText
 import me.sudodios.orangeplayer.ui.theme.ColorBox
 import me.sudodios.orangeplayer.ui.theme.Fonts
@@ -107,7 +111,7 @@ private fun MenuItem(compact : Boolean,selected : Boolean,item: PageSection.Page
         }
     ) {
         Canvas(
-            modifier = Modifier.fillMaxWidth().height(48.dp).clip(RoundedCornerShape(12)).clickable { onClicked.invoke(item) }
+            modifier = Modifier.fillMaxWidth().height(48.dp).clip(RoundedCornerShape(12)).clickable2 { onClicked.invoke(item) }
         ) {
             translate(16f.dp.toPx(), 12f.dp.toPx()) {
                 with(icon) {

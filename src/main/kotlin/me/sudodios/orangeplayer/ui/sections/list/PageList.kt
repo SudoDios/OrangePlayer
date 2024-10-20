@@ -2,7 +2,6 @@ package me.sudodios.orangeplayer.ui.sections.list
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.draggable
 import androidx.compose.foundation.gestures.rememberDraggableState
@@ -34,6 +33,7 @@ import me.sudodios.orangeplayer.core.media.Player
 import me.sudodios.orangeplayer.models.MediaItem
 import me.sudodios.orangeplayer.models.ModelFolderRead
 import me.sudodios.orangeplayer.models.ModelPlaylistsRead
+import me.sudodios.orangeplayer.ui.clickable2
 import me.sudodios.orangeplayer.ui.components.EIconButton
 import me.sudodios.orangeplayer.ui.components.EText
 import me.sudodios.orangeplayer.ui.components.SmoothImage
@@ -145,7 +145,7 @@ private fun MediaItemRow(mediaItem: MediaItem, onClicked: () -> Unit) {
         modifier = Modifier.padding(2.dp).height(58.dp)
             .clip(RoundedCornerShape(12.dp))
             .background(if (Player.Live.currentMedia.value?.path == mediaItem.path) ColorBox.primary.copy(0.3f) else Color.Transparent)
-            .clickable {
+            .clickable2 {
                 onClicked.invoke()
             }.padding(6.dp),
         verticalAlignment = Alignment.CenterVertically
@@ -331,7 +331,7 @@ private fun FolderItemRow(modelFolderRead: ModelFolderRead,onClicked: () -> Unit
         style = MaterialTheme.typography.labelSmall.copy(fontFamily = Fonts.mainFont)
     )
 
-    Canvas(modifier = Modifier.padding(2.dp).fillMaxWidth().height(150.dp).clip(RoundedCornerShape(12.dp)).clickable { onClicked.invoke() }) {
+    Canvas(modifier = Modifier.padding(2.dp).fillMaxWidth().height(150.dp).clip(RoundedCornerShape(12.dp)).clickable2 { onClicked.invoke() }) {
         translate(size.width / 2 - 30f.dp.toPx(),20f.dp.toPx()) {
             with(iconFolder) {
                 draw(Size(60f.dp.toPx(),60f.dp.toPx()), colorFilter = ColorFilter.tint(ColorBox.text.copy(0.8f)))
@@ -378,7 +378,7 @@ private fun PlaylistItemRow(modelPlaylistsRead: ModelPlaylistsRead,onClicked: ()
                 topLeft = Offset(size.width / 2 - folderCountText.size.width / 2f,98f.dp.toPx() + folderNameText.size.height)
             )
         }
-        .clickable { onClicked.invoke() }) {
+        .clickable2 { onClicked.invoke() }) {
         SmoothImage(
             modifier = Modifier.align(Alignment.TopCenter).padding(top = 20.dp).size(60.dp).clip(RoundedCornerShape(50)),
             image = modelPlaylistsRead.coverArt,

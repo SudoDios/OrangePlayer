@@ -2,7 +2,6 @@ package me.sudodios.orangeplayer.ui.components
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -19,7 +18,6 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
@@ -27,6 +25,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import me.sudodios.orangeplayer.ui.clickable2
 import me.sudodios.orangeplayer.ui.theme.ColorBox
 import me.sudodios.orangeplayer.ui.theme.Fonts
 import me.sudodios.orangeplayer.utils.Utils.roundTo
@@ -67,7 +66,7 @@ fun EButton(
         .alpha(if (enabled) 1f else 0.8f)
         .clip(clip)
         .pointerHoverIcon(if (enabled) PointerIcon.Hand else PointerIcon.Default)
-        .clickable(enabled = enabled) { onClick.invoke() }) {
+        .clickable2(enabled = enabled) { onClick.invoke() }) {
         drawRect(color = backgroundColor)
         if (iconPainter != null) {
             translate(left = 12f.dp.toPx(), top = 12f.dp.toPx()) {
@@ -114,10 +113,9 @@ fun EIconButton(
         .clip(RoundedCornerShape(50))
         .background(background)
         .pointerHoverIcon(icon = if (enabled) PointerIcon.Hand else PointerIcon.Default)
-        .clickable(
+        .clickable2(
             enabled = enabled,
-            onClick = onClick,
-            role = Role.Button
+            onClicked = onClick
         )
     ) {
         val iconSize = size.toPx() - (contentPadding.toPx() * 2)
@@ -150,10 +148,9 @@ fun ESpeedButton(
         .clip(RoundedCornerShape(50))
         .background(background)
         .pointerHoverIcon(icon = if (enabled) PointerIcon.Hand else PointerIcon.Default)
-        .clickable(
+        .clickable2(
             enabled = enabled,
-            onClick = onClick,
-            role = Role.Button
+            onClicked = onClick
         )
     ) {
         drawText(

@@ -5,7 +5,6 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -20,6 +19,7 @@ import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import me.sudodios.orangeplayer.ui.clickable2
 import me.sudodios.orangeplayer.ui.components.AutoResizeText
 import me.sudodios.orangeplayer.ui.components.FontSizeRange
 import me.sudodios.orangeplayer.ui.theme.ColorBox
@@ -77,7 +77,7 @@ fun NestedMenuItem(menuItem: NestedMenuItem, onClicked: () -> Unit) {
         modifier = Modifier.width(210.dp).height(38.dp)
             .alpha(if (menuItem.enabled) 1f else 0.4f)
             .clip(RoundedCornerShape(8.dp))
-            .clickable(menuItem.enabled) { onClicked.invoke() }
+            .clickable2(menuItem.enabled) { onClicked.invoke() }
             .pointerHoverIcon(if (menuItem.enabled) PointerIcon.Hand else PointerIcon.Default)
             .padding(start = 8.dp, end = 8.dp),
         verticalAlignment = Alignment.CenterVertically

@@ -1,10 +1,13 @@
 package me.sudodios.orangeplayer.ui.dialogs
 
-import androidx.compose.foundation.*
+import androidx.compose.foundation.LocalScrollbarStyle
+import androidx.compose.foundation.VerticalScrollbar
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollbarAdapter
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -18,6 +21,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import me.sudodios.orangeplayer.core.media.Player
 import me.sudodios.orangeplayer.models.MediaItem
+import me.sudodios.orangeplayer.ui.clickable2
 import me.sudodios.orangeplayer.ui.components.*
 import me.sudodios.orangeplayer.ui.components.reorderable.ReorderableCollectionItemScope
 import me.sudodios.orangeplayer.ui.components.reorderable.ReorderableItem
@@ -103,7 +107,7 @@ private fun ReorderableCollectionItemScope.listItem(isDragging : Boolean,index :
         .shadow(if (isDragging) 3.dp else 0.dp, shape = RoundedCornerShape(12.dp))
         .clip(RoundedCornerShape(12.dp))
         .background(ColorBox.card2)
-        .clickable {
+        .clickable2 {
             Player.startPlay(item)
         }
         .padding(3.dp),

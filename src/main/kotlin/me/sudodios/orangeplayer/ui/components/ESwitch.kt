@@ -3,7 +3,6 @@ package me.sudodios.orangeplayer.ui.components
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -19,6 +18,7 @@ import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
+import me.sudodios.orangeplayer.ui.clickable2
 import me.sudodios.orangeplayer.ui.theme.ColorBox
 import me.sudodios.orangeplayer.ui.theme.Fonts
 
@@ -38,7 +38,7 @@ fun ESwitch(
 
     Canvas(modifier = modifier
         .pointerHoverIcon(if (enabled) PointerIcon.Hand else PointerIcon.Default)
-        .alpha(if (enabled) 1f else 0.7f).height(42.dp).clickable(enabled = enabled) { onClicked?.invoke() }) {
+        .alpha(if (enabled) 1f else 0.7f).height(42.dp).clickable2(enabled = enabled) { onClicked?.invoke() }) {
         drawText(
             textLayoutResult = textLabel,
             color = ColorBox.text,

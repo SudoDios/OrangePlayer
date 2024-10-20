@@ -4,7 +4,6 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -33,6 +32,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import me.sudodios.orangeplayer.core.media.AspectRatio
 import me.sudodios.orangeplayer.core.media.Player
+import me.sudodios.orangeplayer.ui.clickable2
 import me.sudodios.orangeplayer.ui.components.*
 import me.sudodios.orangeplayer.ui.components.menu.NestedPopupMenu
 import me.sudodios.orangeplayer.ui.components.menu.RepeatModePopup
@@ -306,7 +306,7 @@ private fun Overlay(mediaIsVideo: Boolean,onForceShowCursor: (Boolean) -> Unit) 
                     color = Color.Black,
                     modifier = Modifier.size(48.dp).clip(RoundedCornerShape(50))
                         .background(ColorBox.primary)
-                        .clickable {
+                        .clickable2 {
                             Player.autoPlayPause()
                         }.padding(8.dp),
                     play = Player.Live.playPauseCallback.value

@@ -3,6 +3,7 @@ package me.sudodios.orangeplayer.ui
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.draganddrop.dragAndDropTarget
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
@@ -14,6 +15,8 @@ import androidx.compose.ui.draganddrop.DragAndDropTarget
 import androidx.compose.ui.draganddrop.DragData
 import androidx.compose.ui.draganddrop.dragData
 import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -21,6 +24,7 @@ import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.input.pointer.pointerHoverIcon
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.dp
@@ -64,33 +68,37 @@ fun Modifier.hideableCursor(forceShowCursor: Boolean, onVisibility: (Boolean) ->
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalComposeUiApi::class)
 @Composable
-fun Modifier.appDropFiles(onFilesDropped : (paths : List<String>) -> Unit) = composed {
+fun Modifier.appDropFiles(onFilesDropped: (paths: List<String>) -> Unit) = composed {
     var showDragMoveLayout by remember { mutableStateOf(false) }
     val showDragMoveLayoutAnim = animateFloatAsState(if (showDragMoveLayout) 1f else 0f, animationSpec = tween(200))
     val dragTextLayout = rememberTextMeasurer().measure(
         "Drop files here ...",
         style = MaterialTheme.typography.headlineMedium.copy(fontFamily = Fonts.mainFont)
     )
-    fun parseDroppedPaths(input : List<String>) : List<String> {
+
+    fun parseDroppedPaths(input: List<String>): List<String> {
         return input.map {
             val fixStart = it.replace(if (Platform.isUnix()) "file:" else "file:/", "")
             var decode = URLDecoder.decode(fixStart, "UTF-8")
             if (Platform.isWin()) {
-                decode = decode.replace("/","\\")
+                decode = decode.replace("/", "\\")
             }
             decode
         }
     }
+
     val dragAndDropTarget = remember {
         object : DragAndDropTarget {
             override fun onStarted(event: DragAndDropEvent) {
                 showDragMoveLayout = true
                 super.onStarted(event)
             }
+
             override fun onEnded(event: DragAndDropEvent) {
                 showDragMoveLayout = false
                 super.onEnded(event)
             }
+
             override fun onDrop(event: DragAndDropEvent): Boolean {
                 onFilesDropped.invoke(parseDroppedPaths((event.dragData() as DragData.FilesList).readFiles()))
                 return true
@@ -123,4 +131,13 @@ fun Modifier.appDropFiles(onFilesDropped : (paths : List<String>) -> Unit) = com
             alpha = showDragMoveLayoutAnim.value
         )
     }
+}
+
+fun Modifier.clickable2(enabled: Boolean = true, onClicked: () -> Unit) = composed {
+    val focusRequester = remember { FocusRequester() }
+    val focusManager = LocalFocusManager.current
+    clickable(enabled) {
+        onClicked.invoke()
+        focusManager.clearFocus()
+    }.focusRequester(focusRequester)
 }

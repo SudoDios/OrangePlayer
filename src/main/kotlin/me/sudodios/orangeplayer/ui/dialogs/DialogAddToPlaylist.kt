@@ -1,7 +1,6 @@
 package me.sudodios.orangeplayer.ui.dialogs
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -17,6 +16,7 @@ import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.unit.dp
 import me.sudodios.orangeplayer.core.Native
 import me.sudodios.orangeplayer.models.ModelPlaylistsRead
+import me.sudodios.orangeplayer.ui.clickable2
 import me.sudodios.orangeplayer.ui.components.*
 import me.sudodios.orangeplayer.ui.theme.ColorBox
 
@@ -122,7 +122,7 @@ fun DialogAddToPlaylist(
 
 @Composable
 private fun PlaylistItem(playlist : ModelPlaylistsRead,isSelected : Boolean,onClicked : () -> Unit) {
-    Row(modifier = Modifier.fillMaxWidth().height(44.dp).clickable { onClicked.invoke() }.padding(start = 20.dp, end = 20.dp),
+    Row(modifier = Modifier.fillMaxWidth().height(44.dp).clickable2 { onClicked.invoke() }.padding(start = 20.dp, end = 20.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         ECheckbox(isChecked = isSelected)

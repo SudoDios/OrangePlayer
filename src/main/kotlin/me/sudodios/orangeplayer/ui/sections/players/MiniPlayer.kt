@@ -1,7 +1,6 @@
 package me.sudodios.orangeplayer.ui.sections.players
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -18,6 +17,7 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import me.sudodios.orangeplayer.core.media.Player
+import me.sudodios.orangeplayer.ui.clickable2
 import me.sudodios.orangeplayer.ui.components.*
 import me.sudodios.orangeplayer.ui.components.menu.RepeatModePopup
 import me.sudodios.orangeplayer.ui.components.menu.SpeedPlaybackPopup
@@ -138,7 +138,7 @@ private fun BoxWaveform(
 fun MiniPlayer(maxWidth: Int) {
     BoxWaveform(modifier = Modifier.fillMaxWidth()) {
         PlaybackProgress(modifier = Modifier.fillMaxWidth().offset(y = -(16).dp))
-        Row(modifier = Modifier.fillMaxWidth().height(84.dp).clickable { Player.Live.showLargePlayer.value = true }, verticalAlignment = Alignment.CenterVertically) {
+        Row(modifier = Modifier.fillMaxWidth().height(84.dp).clickable2 { Player.Live.showLargePlayer.value = true }, verticalAlignment = Alignment.CenterVertically) {
             Spacer(Modifier.padding(start = 12.dp))
             SmoothImage(
                 modifier = Modifier.size(60.dp).clip(RoundedCornerShape(12.dp)).background(ColorBox.card),
@@ -172,7 +172,7 @@ fun MiniPlayer(maxWidth: Int) {
                 color = Color.Black,
                 modifier = Modifier.size(48.dp).clip(RoundedCornerShape(50))
                     .background(ColorBox.primary)
-                    .clickable {
+                    .clickable2 {
                         Player.autoPlayPause()
                     }.padding(8.dp),
                 play = Player.Live.playPauseCallback.value

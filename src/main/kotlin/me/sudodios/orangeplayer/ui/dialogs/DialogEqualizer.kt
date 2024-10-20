@@ -4,7 +4,6 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -21,6 +20,7 @@ import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import me.sudodios.orangeplayer.core.media.Player
+import me.sudodios.orangeplayer.ui.clickable2
 import me.sudodios.orangeplayer.ui.components.*
 import me.sudodios.orangeplayer.ui.components.menu.NestedPopupMenu
 import me.sudodios.orangeplayer.ui.components.menu.dropDownMenu
@@ -91,7 +91,7 @@ fun EqualizerLayout(
                 )
                 Row(
                     modifier = Modifier.padding(start = 16.dp).height(42.dp).weight(1f).clip(RoundedCornerShape(50))
-                        .background(ColorBox.text.copy(0.1f)).clickable(enabled = switchTurnOnOff) {
+                        .background(ColorBox.text.copy(0.1f)).clickable2(enabled = switchTurnOnOff) {
                             isOpenPresets = true
                         },
                     verticalAlignment = Alignment.CenterVertically

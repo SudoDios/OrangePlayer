@@ -1,6 +1,5 @@
 package me.sudodios.orangeplayer.ui.dialogs
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -20,6 +19,7 @@ import kotlinx.coroutines.launch
 import me.sudodios.orangeplayer.core.Native
 import me.sudodios.orangeplayer.models.MediaItem
 import me.sudodios.orangeplayer.models.ModelPlaylistsRead
+import me.sudodios.orangeplayer.ui.clickable2
 import me.sudodios.orangeplayer.ui.components.BaseDialog
 import me.sudodios.orangeplayer.ui.components.EButton
 import me.sudodios.orangeplayer.ui.components.ECheckbox
@@ -82,7 +82,7 @@ fun DialogRemove(
             )
             if (item is MediaItem) {
                 Row(modifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = 16.dp).clip(RoundedCornerShape(50))
-                    .clickable(enabled = !removing) { delFromDisk = !delFromDisk }.padding(8.dp), verticalAlignment = Alignment.CenterVertically) {
+                    .clickable2(enabled = !removing) { delFromDisk = !delFromDisk }.padding(8.dp), verticalAlignment = Alignment.CenterVertically) {
                     ECheckbox(
                         bgColor = ColorBox.error,
                         isChecked = delFromDisk,
