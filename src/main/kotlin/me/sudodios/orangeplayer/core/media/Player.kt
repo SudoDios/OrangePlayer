@@ -188,6 +188,13 @@ object Player {
         }
     }
 
+    fun updateItemInPlaylist(item : MediaItem) {
+        val index = playList.indexOfFirst { it.path == item.path }
+        if (index != -1) {
+            playList[index] = item
+        }
+    }
+
     fun startPlay(mediaItem: MediaItem, position: Float = 0f, playList: List<MediaItem>? = null,fromUser : Boolean = false) {
         Live.currentMedia.value = mediaItem
         Live.waveform.value = null

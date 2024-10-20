@@ -276,6 +276,7 @@ private fun MediaItemRow(mediaItem: MediaItem, onClicked: () -> Unit) {
                 showEditDialog = false
                 val index = PageSection.pageList.indexOf(mediaItem)
                 PageSection.pageList[index] = updatedMediaItem
+                Player.updateItemInPlaylist(updatedMediaItem)
                 if (Player.Live.currentMedia.value?.path == updatedMediaItem.path) {
                     Player.Live.currentMedia.value = updatedMediaItem
                 }
