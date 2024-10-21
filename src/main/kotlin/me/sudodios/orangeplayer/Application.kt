@@ -3,6 +3,7 @@ package me.sudodios.orangeplayer
 import it.sauronsoftware.junique.AlreadyLockedException
 import it.sauronsoftware.junique.JUnique
 import java.util.*
+import kotlin.system.exitProcess
 
 private const val APP_ID = "me.sudodios.orangeplayer"
 private class ArgFileHandler(var onResult: (List<String>) -> Unit) {
@@ -12,19 +13,21 @@ private class ArgFileHandler(var onResult: (List<String>) -> Unit) {
         listFiles.add(path)
         try {
             timer.cancel()
+            timer.purge()
             timer = Timer()
-        } catch (_ : Exception) {}
-        timer.schedule(object : TimerTask() {
-            override fun run() {
-                onResult.invoke(listFiles)
-                listFiles.clear()
-            }
-        },150)
+        } catch (_ : Exception) {} finally {
+            timer.schedule(object : TimerTask() {
+                override fun run() {
+                    onResult.invoke(listFiles)
+                    listFiles.clear()
+                }
+            },600)
+        }
     }
 }
 
 class Application(var onRecFiles : (List<String>) -> Unit,var onInitWindow : () -> Unit) {
-    private var argFileHandler = ArgFileHandler(onResult = onRecFiles)
+    private lateinit var argFileHandler: ArgFileHandler
     fun run(args : Array<String>) {
         var alreadyRunning: Boolean
         try {
@@ -37,10 +40,12 @@ class Application(var onRecFiles : (List<String>) -> Unit,var onInitWindow : () 
             alreadyRunning = true
         }
         if (!alreadyRunning) {
+            argFileHandler = ArgFileHandler(onRecFiles)
             if (args.isNotEmpty()) argFileHandler.addFile(args[0])
-            onInitWindow.invoke()
+            onInitWindow()
         } else {
             JUnique.sendMessage(APP_ID,args[0])
+            exitProcess(0)
         }
     }
 }
