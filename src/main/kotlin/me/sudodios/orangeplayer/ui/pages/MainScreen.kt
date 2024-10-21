@@ -6,12 +6,10 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.blur
-import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import me.sudodios.orangeplayer.core.media.Player
@@ -87,9 +85,6 @@ fun MainScreen() {
                 ) {
                     MiniPlayer(maxWidth)
                 }
-            }
-            if (Events.showProgressLoading.value) {
-                LinearProgressIndicator(modifier = Modifier.fillMaxWidth().height(2.dp), strokeCap = StrokeCap.Round)
             }
         }
         AnimatedVisibility(

@@ -1,11 +1,16 @@
 package me.sudodios.orangeplayer
 
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.ripple.RippleAlpha
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.*
 import me.sudodios.orangeplayer.core.InitWindow
 import me.sudodios.orangeplayer.core.Native
@@ -104,6 +109,12 @@ private fun App () {
                     Events.showCurrentPlaylist.value = false
                 }
             )
+            BaseDialog(expanded = Events.showProgressLoading.value) {
+                CircularProgressIndicator(
+                    modifier = Modifier.padding(20.dp).size(48.dp),
+                    strokeCap = StrokeCap.Round
+                )
+            }
         }
     }
 }
