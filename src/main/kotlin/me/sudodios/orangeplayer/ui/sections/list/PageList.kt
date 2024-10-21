@@ -56,8 +56,8 @@ fun PageList() {
     val emptyIcon = painterResource("icons/box-search.svg")
     val emptyText = rememberTextMeasurer().measure("No Item Found !!", style = MaterialTheme.typography.headlineSmall)
     val columnCellType =
-        if ((PageSection.selectedMenu.value == PageSection.Page.FOLDERS ||
-            PageSection.selectedMenu.value == PageSection.Page.PLAYLISTS) && !PageSection.pageIsChild.value && PageSection.searchKeyword.value.isEmpty()
+        if (PageSection.selectedMenu.value.itemCompact &&
+            !PageSection.pageIsChild.value && PageSection.searchKeyword.value.isEmpty()
         ) GridCells.Adaptive(150.dp) else {
             if (Events.viewIsList.value) {
                 GridCells.Fixed(1)

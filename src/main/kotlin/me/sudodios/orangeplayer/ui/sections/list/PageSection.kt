@@ -18,13 +18,13 @@ object PageSection {
     //list scroll state
     val lazyGridState = LazyGridState()
 
-    enum class Page(var title : String,var icon : String) {
-        ALL_MEDIA("All Media","icons/media-library.svg"),
-        VIDEOS("Videos","icons/video-cam.svg"),
-        AUDIOS("Audios","icons/music-note.svg"),
-        FAVORITES("Favorites","icons/heart.svg"),
-        FOLDERS("Folders","icons/folder.svg"),
-        PLAYLISTS("Playlists","icons/playlist.svg"),
+    enum class Page(var title : String,var icon : String,var itemCompact : Boolean) {
+        ALL_MEDIA("All Media","icons/media-library.svg",false),
+        VIDEOS("Videos","icons/video-cam.svg",false),
+        AUDIOS("Audios","icons/music-note.svg",false),
+        FAVORITES("Favorites","icons/heart.svg",false),
+        FOLDERS("Folders","icons/folder.svg",true),
+        PLAYLISTS("Playlists","icons/playlist.svg",true)
     }
 
     val selectedMenu = mutableStateOf(Page.PLAYLISTS)
