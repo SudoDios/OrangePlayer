@@ -9,20 +9,28 @@ import androidx.compose.foundation.gestures.rememberDraggableState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.text.drawText
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import me.sudodios.orangeplayer.core.media.Player
 import me.sudodios.orangeplayer.ui.components.EText
 import me.sudodios.orangeplayer.ui.theme.ColorBox
+import me.sudodios.orangeplayer.ui.theme.Fonts
 import me.sudodios.orangeplayer.utils.Pref
 import me.sudodios.orangeplayer.utils.Utils.roundTo
 
@@ -55,12 +63,6 @@ fun SpeedPlaybackPopup(
                 valueChangedFinished = {
                     Player.changeSpeed((speedSeekValue.second * 1.5f) + 0.5f)
                 }
-            )
-            EText(
-                modifier = Modifier.padding(start = 16.dp).align(Alignment.CenterStart),
-                text = "${((speedSeekValue.second * 1.5) + 0.5).roundTo(1)}x",
-                color = ColorBox.text,
-                fontSize = 13.sp
             )
         }
         HorizontalDivider(Modifier.padding(top = 6.dp, bottom = 2.dp).fillMaxWidth(), color = ColorBox.text.copy(0.1f))
@@ -127,6 +129,10 @@ private fun SpeedSeekbar(
     var offsetX by remember { mutableStateOf(0f) }
 
     val animateProgress = animateFloatAsState(value.second)
+    val textLayout = rememberTextMeasurer().measure(
+        "${((value.second * 1.5) + 0.5).roundTo(1)}x",
+        style = MaterialTheme.typography.bodyMedium.copy(fontFamily = Fonts.numbersFont, fontWeight = FontWeight.Bold)
+    )
 
     Canvas(
         modifier = modifier.clip(RoundedCornerShape(8.dp)).onGloballyPositioned {
@@ -158,10 +164,23 @@ private fun SpeedSeekbar(
                 }
             }
     ) {
-        drawRect(
-            color = ColorBox.primary.copy(0.2f),
-            size = Size(size.width * if (value.first) animateProgress.value else value.second, size.height)
+        drawText(
+            textLayoutResult = textLayout,
+            topLeft = Offset(16f.dp.toPx(),size.height / 2 - textLayout.size.height / 2),
+            color = ColorBox.text
         )
+        val progressRect = Rect(Offset.Zero, size = Size(size.width * if (value.first) animateProgress.value else value.second, size.height))
+        drawRect(
+            color = ColorBox.primary,
+            size = progressRect.size
+        )
+        clipRect(0f,0f,progressRect.width,progressRect.height) {
+            drawText(
+                textLayoutResult = textLayout,
+                topLeft = Offset(16f.dp.toPx(),size.height / 2 - textLayout.size.height / 2),
+                color = Color.Black
+            )
+        }
     }
 
 }
