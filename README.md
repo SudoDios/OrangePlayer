@@ -1,6 +1,7 @@
 ![Logo](assets/header-logo.png "Logo")
 
 <h1 align="center">Orange Player</h1>
+
 <h6 align="center">A Feature-rich, Beautiful desktop media player based on compose desktop, libvlc, mediainfo & ...</h6>
 
 ### 📷 Screenshot
